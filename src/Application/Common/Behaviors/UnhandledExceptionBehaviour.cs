@@ -25,7 +25,7 @@ namespace Application.Common.Behaviors
             {
                 var requestName = request.GetType().Name;
 
-                _logger.LogError(ex, $"CleanArchitecture Request: Unhandled Exception for Request {requestName} : {request}");
+                _logger.LogError(ex, $"CleanArchitecture Request: Unhandled Exception for Request {requestName} {@request}");
 
                 throw;
             }

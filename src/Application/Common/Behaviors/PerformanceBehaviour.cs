@@ -30,7 +30,7 @@ namespace Application.Common.Behaviors
 
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
-            if (elapsedMilliseconds > 500)
+            if (elapsedMilliseconds > 600)
             {
                 var requestName = typeof(TRequest).Name;
                 //var userId = _currentUserService.UserId ?? string.Empty;
@@ -43,7 +43,7 @@ namespace Application.Common.Behaviors
 
                 //_logger.LogWarning($"CleanArchitecture Long Running Request: {requestName} ({elapsedMilliseconds} milliseconds) {@userId} {@userName} {@request}");
 
-                _logger.LogWarning($"CleanArchitecture Long Running Request: {requestName}");
+                _logger.LogWarning($"CleanArchitecture Long Running Request: {requestName} ({elapsedMilliseconds} milliseconds) {@request}");
             }
 
             return response;

@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using Application.Common.Mappings;
+using AutoMapper;
 using Domain.Entities;
 using Domain.ValueObjects;
 
 namespace Application.Suppliers.Responses
 {
-    public class SupplierDto : Profile
+    public class SupplierDto : IMapFrom<Supplier>
     {
         public int Id { get; set; }
         public string SupplierName { get; set; }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -22,6 +21,8 @@ namespace Api.Filters
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
+                { typeof(UnauthorizedUserException), HandleUnauthorizedException },
+                { typeof(BadRequestException), HandleBadRequestException }
             };
         }
 
@@ -40,11 +41,6 @@ namespace Api.Filters
                 _exceptionHandlers[type].Invoke(context);
                 return;
             }
-
-            //var logger = context.HttpContext.RequestServices
-            //    .GetRequiredService<ILogger<ApiExceptionFilterAttribute>>();
-
-            //logger.LogError(context.Exception, context.Exception.Message);
 
             HandleUnknownException(context);
         }
@@ -85,6 +81,28 @@ namespace Api.Filters
             var response = new ApiResponse((int)HttpStatusCode.NotFound, exception.Message);
 
             context.Result = new NotFoundObjectResult(response);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleUnauthorizedException(ExceptionContext context)
+        {
+            var exception = context.Exception as UnauthorizedUserException;
+
+            var response = new ApiResponse((int)HttpStatusCode.NotFound, exception.Message);
+
+            context.Result = new UnauthorizedObjectResult(response);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleBadRequestException(ExceptionContext context)
+        {
+            var exception = context.Exception as BadRequestException;
+
+            var response = new ApiResponse((int)HttpStatusCode.NotFound, exception.Message);
+
+            context.Result = new BadRequestObjectResult(response);
 
             context.ExceptionHandled = true;
         }

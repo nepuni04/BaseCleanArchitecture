@@ -5,6 +5,7 @@ using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.Extensions;
 
 namespace Infrastructure
 {
@@ -22,7 +23,12 @@ namespace Infrastructure
             });
 
             services.AddScoped<IStoreContext>(sp => sp.GetRequiredService<StoreContext>());
+
+            services.AddIdentityService(config);
+
             services.AddScoped<IDomainEventService, DomainEventService>();
+            
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddTransient<IDateTime, DateTimeService>();
 

@@ -1,6 +1,5 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,7 +27,7 @@ namespace Application.Common.Behaviors
 
             //_logger.LogInformation($"CleanArchitecture Request: {requestName} {@userId} {@userName} {@request}");
 
-            _logger.LogInformation($"CleanArchitecture Request: {requestName}");
+            _logger.LogInformation($"CleanArchitecture Request: {requestName} {@request}");
 
             return Task.CompletedTask;
         }
