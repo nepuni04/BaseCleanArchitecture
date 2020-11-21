@@ -13,7 +13,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<StoreContext>(x =>
+            services.AddDbContext<AppDbContext>(x =>
             {
                 x.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
@@ -22,7 +22,7 @@ namespace Infrastructure
                 x.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
 
-            services.AddScoped<IStoreContext>(sp => sp.GetRequiredService<StoreContext>());
+            services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
 
             services.AddIdentityService(config);
 

@@ -16,9 +16,9 @@ namespace Application.Products.Commands.DeleteProduct
 
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     {
-        private readonly IStoreContext _context;
+        private readonly IAppDbContext _context;
 
-        public DeleteProductCommandHandler(IStoreContext context)
+        public DeleteProductCommandHandler(IAppDbContext context)
         {
             _context = context;
         }

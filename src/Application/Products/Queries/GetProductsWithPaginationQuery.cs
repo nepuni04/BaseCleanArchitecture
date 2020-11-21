@@ -18,10 +18,10 @@ namespace Application.Products.Queries
 
     public class GetProductsWithPaginationQueryHandler : IRequestHandler<GetProductsWithPaginationQuery, PaginatedList<ProductDto>>
     {
-        private readonly IStoreContext _context;
+        private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetProductsWithPaginationQueryHandler(IStoreContext context, IMapper mapper)
+        public GetProductsWithPaginationQueryHandler(IAppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

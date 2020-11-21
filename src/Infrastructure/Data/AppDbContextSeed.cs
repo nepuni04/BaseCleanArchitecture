@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class StoreContextSeed
+    public class AppDbContextSeed
     {
-        public static async Task SeedAsync(StoreContext storeContext, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(AppDbContext storeContext, ILoggerFactory loggerFactory)
         {
             try
             {
-                await SeedCategoriesAsync(storeContext);
+                await SeedProductTypesAsync(storeContext);
                 await SeedProductsAsync(storeContext);
             }
             catch (Exception exception)
             {
-                var log = loggerFactory.CreateLogger<StoreContextSeed>();
+                var log = loggerFactory.CreateLogger<AppDbContextSeed>();
                 log.LogError(exception.Message);
                 throw;
             }
         }
 
-        private static async Task SeedCategoriesAsync(StoreContext storeContext)
+        private static async Task SeedProductTypesAsync(AppDbContext storeContext)
         {
             if (storeContext.ProductTypes.Any())
                 return;
@@ -52,7 +52,7 @@ namespace Infrastructure.Data
             await storeContext.SaveChangesAsync();
         }
 
-        private static async Task SeedProductsAsync(StoreContext storeContext)
+        private static async Task SeedProductsAsync(AppDbContext storeContext)
         {
             if (storeContext.Products.Any())
                 return;

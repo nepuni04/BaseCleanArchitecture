@@ -21,9 +21,9 @@ namespace Application.Products.Commands.UpdateProduct
 
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
-        private readonly IStoreContext context;
+        private readonly IAppDbContext context;
 
-        public UpdateProductCommandHandler(IStoreContext context)
+        public UpdateProductCommandHandler(IAppDbContext context)
         {
             this.context = context;
         }

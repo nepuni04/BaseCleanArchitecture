@@ -25,9 +25,9 @@ namespace Api
 
                 try
                 {
-                    var context = services.GetRequiredService<StoreContext>();
+                    var context = services.GetRequiredService<AppDbContext>();
                     await context.Database.MigrateAsync();
-                    await StoreContextSeed.SeedAsync(context, loggerFactory);
+                    await AppDbContextSeed.SeedAsync(context, loggerFactory);
 
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();

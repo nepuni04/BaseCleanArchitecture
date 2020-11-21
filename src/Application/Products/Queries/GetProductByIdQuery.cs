@@ -18,10 +18,10 @@ namespace Application.Products.Queries
 
     public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
     {
-        private readonly IStoreContext _context;
+        private readonly IAppDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetProductByIdQueryHandler(IStoreContext context, IMapper mapper)
+        public GetProductByIdQueryHandler(IAppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

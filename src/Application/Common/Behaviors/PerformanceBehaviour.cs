@@ -1,9 +1,7 @@
-﻿using MediatR;
+﻿using Application.Common.Interfaces;
+using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,11 +11,13 @@ namespace Application.Common.Behaviors
     {
         private readonly Stopwatch _timer;
         private readonly ILogger<TRequest> _logger;
+        private readonly ICurrentUserService _currentUserService;
 
-        public PerformanceBehaviour(ILogger<TRequest> logger)
+        public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService)
         {
             _timer = new Stopwatch();
             _logger = logger;
+            _currentUserService = currentUserService;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -33,17 +33,9 @@ namespace Application.Common.Behaviors
             if (elapsedMilliseconds > 600)
             {
                 var requestName = typeof(TRequest).Name;
-                //var userId = _currentUserService.UserId ?? string.Empty;
-                //var userName = string.Empty;
-
-                //if (!string.IsNullOrEmpty(userId))
-                //{
-                //    userName = await _identityService.GetUserNameAsync(userId);
-                //}
-
-                //_logger.LogWarning($"CleanArchitecture Long Running Request: {requestName} ({elapsedMilliseconds} milliseconds) {@userId} {@userName} {@request}");
-
-                _logger.LogWarning($"CleanArchitecture Long Running Request: {requestName} ({elapsedMilliseconds} milliseconds) {@request}");
+                var userId = _currentUserService.UserId ?? string.Empty;
+               
+                _logger.LogWarning($"CleanArchitecture Long Running Request: {requestName} ({elapsedMilliseconds} milliseconds) {@userId} {@request}");
             }
 
             return response;

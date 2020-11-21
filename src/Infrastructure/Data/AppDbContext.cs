@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class StoreContext : DbContext, IStoreContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         private readonly IDateTime _dateTime;
         private readonly IDomainEventService _domainEventService;
 
-        public StoreContext(IDateTime dateTime, 
-            DbContextOptions<StoreContext> options,
+        public AppDbContext(IDateTime dateTime, 
+            DbContextOptions<AppDbContext> options,
             IDomainEventService domainEventService) : base(options)
         {
             _dateTime = dateTime;

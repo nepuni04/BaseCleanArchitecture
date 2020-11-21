@@ -19,8 +19,8 @@ namespace Application.Products.Commands.CreateProduct
 
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
     {
-        private readonly IStoreContext _context;
-        public CreateProductCommandHandler(IStoreContext context)
+        private readonly IAppDbContext _context;
+        public CreateProductCommandHandler(IAppDbContext context)
         {
             _context = context;
         }
