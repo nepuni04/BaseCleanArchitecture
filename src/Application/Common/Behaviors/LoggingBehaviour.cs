@@ -20,9 +20,10 @@ namespace Application.Common.Behaviors
         public Task Process(TRequest request, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            var userId = _currentUserService.UserId ?? string.Empty;
+            var userEmail = _currentUserService.Email ?? string.Empty;
+            var userName = _currentUserService.DisplayName ?? string.Empty;
 
-            _logger.LogInformation($"CleanArchitecture Request: {requestName} {userId} {@request}");
+            _logger.LogInformation($"CleanArchitecture Request: {requestName} {userName} {@userEmail} : {@request}");
 
             return Task.CompletedTask;
         }

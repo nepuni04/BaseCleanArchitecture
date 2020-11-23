@@ -13,6 +13,8 @@ namespace Api.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId => _httpContextAccessor.HttpContext?.User?.GetEmailFromClaimsPrincipal();
+        public string Email => _httpContextAccessor.HttpContext?.User?.GetEmailFromClaimsPrincipal();
+
+        public string DisplayName => _httpContextAccessor.HttpContext?.User?.GetUserNameFromClaimsPrincipal();
     }
 }

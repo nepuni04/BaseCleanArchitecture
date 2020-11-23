@@ -16,13 +16,15 @@ namespace Infrastructure.Data
     {
         private readonly IDateTime _dateTime;
         private readonly IDomainEventService _domainEventService;
+        private readonly ICurrentUserService _currentUserService;
 
-        public AppDbContext(IDateTime dateTime, 
+        public AppDbContext(IDateTime dateTime,
             DbContextOptions<AppDbContext> options,
-            IDomainEventService domainEventService) : base(options)
+            IDomainEventService domainEventService, ICurrentUserService currentUserService) : base(options)
         {
             _dateTime = dateTime;
             _domainEventService = domainEventService;
+            _currentUserService = currentUserService;
         }
 
         public DbSet<Product> Products { get; set; }
@@ -36,12 +38,12 @@ namespace Infrastructure.Data
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        //entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.CreatedBy = _currentUserService.Email;
                         entry.Entity.Created = _dateTime.Now;
                         break;
 
                     case EntityState.Modified:
-                        //entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModifiedBy = _currentUserService.Email;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
